@@ -1,75 +1,79 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowUpRight, DollarSign, TrendingUp, Globe, Activity } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { TrendingUp, TrendingDown, DollarSign, Users, Activity, Globe } from "lucide-react"
 
 export function MetricsCards() {
+  const metrics = [
+    {
+      title: "Total Volume",
+      value: "$2.8M",
+      change: "+12.5%",
+      trend: "up",
+      icon: DollarSign,
+      gradient: "from-purple-500 to-pink-500",
+    },
+    {
+      title: "Active Users",
+      value: "1,234",
+      change: "+8.2%",
+      trend: "up",
+      icon: Users,
+      gradient: "from-blue-500 to-cyan-500",
+    },
+    {
+      title: "Transactions",
+      value: "5,678",
+      change: "-2.1%",
+      trend: "down",
+      icon: Activity,
+      gradient: "from-green-500 to-emerald-500",
+    },
+    {
+      title: "Countries",
+      value: "45",
+      change: "+3",
+      trend: "up",
+      icon: Globe,
+      gradient: "from-orange-500 to-red-500",
+    },
+  ]
+
   return (
-    <div className="grid gap-3 sm:gap-4 md:gap-6 grid-cols-2 lg:grid-cols-4">
-      <Card className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-purple-500/20 backdrop-blur-sm">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-3 sm:px-6 pt-3 sm:pt-6">
-          <CardTitle className="text-xs sm:text-sm font-medium text-gray-300">Total Volume (24h)</CardTitle>
-          <DollarSign className="h-3 w-3 sm:h-4 sm:w-4 text-purple-400" />
-        </CardHeader>
-        <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
-          <div className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            $2.8M
-          </div>
-          <p className="text-xs text-gray-400">
-            <span className="text-green-400 flex items-center">
-              <ArrowUpRight className="h-2 w-2 sm:h-3 sm:w-3 mr-1" />
-              +18.2%
-            </span>
-            <span className="hidden sm:inline">from yesterday</span>
-          </p>
-        </CardContent>
-      </Card>
-
-      <Card className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border-blue-500/20 backdrop-blur-sm">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-3 sm:px-6 pt-3 sm:pt-6">
-          <CardTitle className="text-xs sm:text-sm font-medium text-gray-300">Transactions</CardTitle>
-          <Activity className="h-3 w-3 sm:h-4 sm:w-4 text-blue-400" />
-        </CardHeader>
-        <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
-          <div className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-            14,729
-          </div>
-          <p className="text-xs text-gray-400">
-            <span className="text-green-400 flex items-center">
-              <ArrowUpRight className="h-2 w-2 sm:h-3 sm:w-3 mr-1" />
-              +7.4%
-            </span>
-            <span className="hidden sm:inline">from yesterday</span>
-          </p>
-        </CardContent>
-      </Card>
-
-      <Card className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border-green-500/20 backdrop-blur-sm">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-3 sm:px-6 pt-3 sm:pt-6">
-          <CardTitle className="text-xs sm:text-sm font-medium text-gray-300">Success Rate</CardTitle>
-          <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4 text-green-400" />
-        </CardHeader>
-        <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
-          <div className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
-            98.7%
-          </div>
-          <p className="text-xs text-gray-400">
-            <span className="text-green-400">+0.3%</span>
-            <span className="hidden sm:inline"> from last week</span>
-          </p>
-        </CardContent>
-      </Card>
-
-      <Card className="bg-gradient-to-br from-orange-500/10 to-yellow-500/10 border-orange-500/20 backdrop-blur-sm">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-3 sm:px-6 pt-3 sm:pt-6">
-          <CardTitle className="text-xs sm:text-sm font-medium text-gray-300">Countries</CardTitle>
-          <Globe className="h-3 w-3 sm:h-4 sm:w-4 text-orange-400" />
-        </CardHeader>
-        <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
-          <div className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">
-            47
-          </div>
-          <p className="text-xs text-gray-400">Active markets</p>
-        </CardContent>
-      </Card>
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+      {metrics.map((metric, index) => {
+        const Icon = metric.icon
+        return (
+          <Card
+            key={index}
+            className="bg-gray-900/30 backdrop-blur-sm border border-gray-800/50 hover:border-gray-700/50 transition-colors"
+          >
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 p-3 md:p-6">
+              <CardTitle className="text-xs md:text-sm font-medium text-gray-300 truncate">{metric.title}</CardTitle>
+              <Icon className={`h-3 w-3 md:h-4 md:w-4 bg-gradient-to-r ${metric.gradient} rounded p-0.5 text-white`} />
+            </CardHeader>
+            <CardContent className="p-3 md:p-6 pt-0">
+              <div className="text-lg md:text-2xl font-bold text-white mb-1 md:mb-2">{metric.value}</div>
+              <div className="flex items-center space-x-1 md:space-x-2">
+                {metric.trend === "up" ? (
+                  <TrendingUp className="h-3 w-3 md:h-4 md:w-4 text-green-400" />
+                ) : (
+                  <TrendingDown className="h-3 w-3 md:h-4 md:w-4 text-red-400" />
+                )}
+                <Badge
+                  variant="secondary"
+                  className={`text-xs ${
+                    metric.trend === "up"
+                      ? "bg-green-500/20 text-green-400 border-green-500/30"
+                      : "bg-red-500/20 text-red-400 border-red-500/30"
+                  }`}
+                >
+                  {metric.change}
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
+        )
+      })}
     </div>
   )
 }

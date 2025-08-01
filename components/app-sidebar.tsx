@@ -1,142 +1,93 @@
-import {
-  Activity,
-  AlertTriangle,
-  BarChart3,
-  Code,
-  CreditCard,
-  DollarSign,
-  FileText,
-  Home,
-  Key,
-  Settings,
-  Shield,
-  TrendingUp,
-  Users,
-  Wallet,
-} from "lucide-react"
-
+import { Home, CreditCard, Wallet, Code, Shield, FileText, Users, Key } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarHeader,
 } from "@/components/ui/sidebar"
-import { Button } from "@/components/ui/button"
 
-const navigationItems = [
+const items = [
   {
-    title: "Overview",
+    title: "Dashboard",
+    url: "#",
     icon: Home,
-    items: [
-      { title: "Dashboard", icon: BarChart3 },
-      { title: "API Health", icon: Activity },
-    ],
   },
   {
-    title: "API Management",
+    title: "API Keys",
+    url: "#",
     icon: Key,
-    items: [
-      { title: "API Keys", icon: Key },
-      { title: "Rate Limits", icon: TrendingUp },
-      { title: "Usage Analytics", icon: BarChart3 },
-    ],
   },
   {
     title: "Payments",
+    url: "#",
     icon: CreditCard,
-    items: [
-      { title: "Payment Intents", icon: CreditCard },
-      { title: "Exchange Rates", icon: DollarSign },
-      { title: "Transaction History", icon: FileText },
-    ],
   },
   {
     title: "Wallets",
+    url: "#",
     icon: Wallet,
-    items: [
-      { title: "User Wallets", icon: Wallet },
-      { title: "Balances", icon: DollarSign },
-      { title: "Conversion History", icon: TrendingUp },
-    ],
   },
   {
-    title: "Developer Tools",
+    title: "Developer Console",
+    url: "#",
     icon: Code,
-    items: [
-      { title: "API Console", icon: Code },
-      { title: "Webhooks", icon: Settings },
-      { title: "SDK & Docs", icon: FileText },
-    ],
   },
   {
-    title: "Risk & Compliance",
+    title: "Risk Management",
+    url: "#",
     icon: Shield,
-    items: [
-      { title: "Fraud Detection", icon: AlertTriangle },
-      { title: "KYC Status", icon: Users },
-      { title: "Compliance Reports", icon: FileText },
-    ],
   },
   {
     title: "Settlement",
-    icon: TrendingUp,
-    items: [
-      { title: "Payout Schedules", icon: TrendingUp },
-      { title: "FX Reports", icon: BarChart3 },
-      { title: "Regulatory Exports", icon: FileText },
-    ],
+    url: "#",
+    icon: FileText,
+  },
+  {
+    title: "Compliance",
+    url: "#",
+    icon: Users,
   },
 ]
 
 export function AppSidebar() {
   return (
-    <Sidebar variant="inset" className="border-r border-gray-800 bg-gray-900/50 backdrop-blur-sm">
-      <SidebarHeader className="border-b border-gray-800">
-        <div className="flex items-center gap-2 px-2 py-3 md:py-4">
-          <div className="h-6 w-6 md:h-8 md:w-8 rounded bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 flex-shrink-0" />
-          <div className="min-w-0">
-            <p className="text-sm font-medium text-white truncate">GlobalPay API</p>
-            <p className="text-xs text-gray-400 truncate">Production Environment</p>
+    <Sidebar className="bg-gray-950/50 backdrop-blur-md border-r border-gray-800/50">
+      <SidebarHeader className="p-4 border-b border-gray-800/50">
+        <div className="flex items-center space-x-2">
+          <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+            <CreditCard className="h-4 w-4 text-white" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <h2 className="text-sm font-semibold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent truncate">
+              Currency API
+            </h2>
           </div>
         </div>
       </SidebarHeader>
-      <SidebarContent className="bg-transparent">
-        {navigationItems.map((section) => (
-          <SidebarGroup key={section.title}>
-            <SidebarGroupLabel className="text-gray-300 font-medium">{section.title}</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {section.items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton className="text-gray-300 hover:bg-gradient-to-r hover:from-purple-500/20 hover:to-pink-500/20 hover:text-white transition-all duration-200">
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-gray-400 text-xs uppercase tracking-wider">Platform</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {items.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild className="text-gray-300 hover:text-white hover:bg-gray-800/50">
+                    <a href={item.url} className="flex items-center space-x-2">
                       <item.icon className="h-4 w-4" />
-                      <span>{item.title}</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        ))}
+                      <span className="truncate">{item.title}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="border-t border-gray-800">
-        <div className="p-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="w-full bg-transparent border-gray-700 text-gray-300 hover:bg-gradient-to-r hover:from-purple-500/20 hover:to-pink-500/20 hover:text-white hover:border-purple-400"
-          >
-            <Settings className="h-4 w-4 mr-2" />
-            Settings
-          </Button>
-        </div>
-      </SidebarFooter>
     </Sidebar>
   )
 }
