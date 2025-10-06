@@ -79,7 +79,7 @@ export default function LizardClick() {
         >
           {/* Lizard PNG Icon */}
           <div className={`transition-transform duration-200 ${isAnimating ? "rotate-12 scale-110" : ""}`}>
-            <Image src="/lizard-icon.png" alt="Lizard" width={160} height={160} className="drop-shadow-2xl" priority />
+            <Image src="/lizard-icon.png" alt="Lizard" width={180} height={180} className="drop-shadow-2xl" priority />
           </div>
         </button>
 
