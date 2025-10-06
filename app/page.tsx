@@ -61,19 +61,20 @@ export default function LizardClick() {
 
       {/* Main Content */}
       <div className="flex flex-col items-center justify-center min-h-screen px-4 -mt-20">
-        {/* Lizard Button */}
+        {/* Lizard Button with transparent/grey background */}
         <button
           onClick={handleLizardClick}
           className={`
-            w-64 h-64 bg-gray-700 rounded-full
+            w-64 h-64 bg-gray-700/20 backdrop-blur-sm rounded-full
             flex items-center justify-center
             transition-all duration-200 ease-out
-            hover:bg-gray-600 hover:scale-105
+            hover:bg-gray-600/30 hover:scale-105
             active:scale-95
-            ${isAnimating ? "scale-110 bg-gray-600" : ""}
+            border border-gray-600/30
+            ${isAnimating ? "scale-110 bg-gray-600/30" : ""}
           `}
           style={{
-            boxShadow: "0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+            boxShadow: "0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
           }}
         >
           {/* Lizard PNG Icon */}
