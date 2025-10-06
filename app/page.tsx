@@ -1,6 +1,7 @@
-'use client'
+"use client"
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from "react"
+import Image from "next/image"
 
 export default function LizardClick() {
   const [myClicks, setMyClicks] = useState(0)
@@ -10,17 +11,19 @@ export default function LizardClick() {
 
   // Load clicks from localStorage on mount
   useEffect(() => {
-    const savedMyClicks = localStorage.getItem('myClicks')
-    if (savedMyClicks) setMyClicks(parseInt(savedMyClicks))
+    const savedMyClicks = localStorage.getItem("myClicks")
+    if (savedMyClicks) setMyClicks(Number.parseInt(savedMyClicks))
 
     // Initialize audio element
-    audioRef.current = new Audio('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/lizardlizardlizard-made-with-Voicemod-hrFSAVX6purDtnltyOBtAUjI1J7lfA.mp3')
+    audioRef.current = new Audio(
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/lizardlizardlizard-made-with-Voicemod-hrFSAVX6purDtnltyOBtAUjI1J7lfA.mp3",
+    )
     audioRef.current.load() // Preload the audio
   }, [])
 
   // Save clicks to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem('myClicks', myClicks.toString())
+    localStorage.setItem("myClicks", myClicks.toString())
   }, [myClicks])
 
   const handleLizardClick = () => {
@@ -30,8 +33,8 @@ export default function LizardClick() {
     }
 
     // Increment counters
-    setMyClicks(prev => prev + 1)
-    setAllClicks(prev => prev + 1)
+    setMyClicks((prev) => prev + 1)
+    setAllClicks((prev) => prev + 1)
 
     // Animation
     setIsAnimating(true)
@@ -40,7 +43,7 @@ export default function LizardClick() {
     // Play the provided MP3 sound
     if (audioRef.current) {
       audioRef.current.currentTime = 0 // Rewind to start if already playing
-      audioRef.current.play().catch(e => console.error("Error playing audio:", e))
+      audioRef.current.play().catch((e) => console.error("Error playing audio:", e))
     }
   }
 
@@ -49,43 +52,38 @@ export default function LizardClick() {
       {/* Click Counters */}
       <div className="flex justify-center gap-4 pt-8 px-4">
         <div className="bg-gray-800 rounded-full px-6 py-3">
-          <span className="text-white font-medium text-lg">
-            My Clicks: {myClicks.toLocaleString()}
-          </span>
+          <span className="text-white font-medium text-lg">My Clicks: {myClicks.toLocaleString()}</span>
         </div>
         <div className="bg-gray-800 rounded-full px-6 py-3">
-          <span className="text-white font-medium text-lg">
-            All Clicks: {allClicks.toLocaleString()}
-          </span>
+          <span className="text-white font-medium text-lg">All Clicks: {allClicks.toLocaleString()}</span>
         </div>
       </div>
 
       {/* Main Content */}
       <div className="flex flex-col items-center justify-center min-h-screen px-4 -mt-20">
-        {/* Lizard Button */}
+        {/* Lizard Button with transparent/grey background */}
         <button
           onClick={handleLizardClick}
           className={`
-            w-64 h-64 bg-gray-700 rounded-full
+            w-64 h-64 bg-gray-700/20 backdrop-blur-sm rounded-full
             flex items-center justify-center
             transition-all duration-200 ease-out
-            hover:bg-gray-600 hover:scale-105
+            hover:bg-gray-600/30 hover:scale-105
             active:scale-95
-            ${isAnimating ? 'scale-110 bg-gray-600' : ''}
+            border border-gray-600/30
+            ${isAnimating ? "scale-110 bg-gray-600/30" : ""}
           `}
           style={{
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+            boxShadow: "0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
           }}
         >
-          {/* Lizard Emoji */}
-          <span 
-            className={`text-8xl transition-transform duration-200 ${isAnimating ? 'rotate-12 scale-110' : ''}`}
-          >
-            🦎
-          </span>
+          {/* Lizard PNG Icon */}
+          <div className={`transition-transform duration-200 ${isAnimating ? "rotate-12 scale-110" : ""}`}>
+            <Image src="/lizard-icon.png" alt="Lizard" width={180} height={180} className="drop-shadow-2xl" priority />
+          </div>
         </button>
 
-        {/* "Lizard" text animation */}
+        {/* "lizard" text animation */}
         {isAnimating && (
           <div className="absolute mt-4 animate-bounce">
             <span className="text-white text-2xl font-bold">lizard</span>
@@ -96,9 +94,7 @@ export default function LizardClick() {
       {/* Bottom Text */}
       <div className="absolute bottom-8 left-0 right-0 flex justify-center px-4">
         <div className="bg-white rounded-full px-6 py-3">
-          <p className="text-gray-900 text-sm font-medium">
-            Unmute your phone if you don't hear sound 🔊
-          </p>
+          <p className="text-gray-900 text-sm font-medium">Unmute your phone if you don't hear sound 🔊</p>
         </div>
       </div>
     </div>
